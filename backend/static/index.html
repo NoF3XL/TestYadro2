@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SysMon - System Monitor</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="error-banner" class="error-banner"></div>
+
+    <header class="header">
+        <h1 class="header-title">SysMon</h1>
+        <div class="header-info">
+            <span class="header-item" id="sys-hostname">—</span>
+            <span class="header-sep">|</span>
+            <span class="header-item">Kernel: <span id="sys-kernel">—</span></span>
+            <span class="header-sep">|</span>
+            <span class="header-item">Up: <span id="sys-uptime">—</span></span>
+        </div>
+    </header>
+
+    <main class="main-grid">
+        <section class="card cpu-card">
+            <h2 class="card-title">CPU</h2>
+            <div class="card-body cpu-body">
+                <div class="gauge-container">
+                    <svg id="cpu-gauge" class="gauge" viewBox="0 0 128 128" width="128" height="128">
+                        <circle cx="64" cy="64" r="54" fill="none" stroke="#1e2a3a" stroke-width="10"/>
+                    </svg>
+                    <div id="cpu-gauge-text" class="gauge-value ok">—%</div>
+                </div>
+                <div id="cpu-cores" class="cpu-cores"></div>
+            </div>
+        </section>
+
+        <section class="card memory-card">
+            <h2 class="card-title">Memory</h2>
+            <div class="card-body">
+                <div class="mem-row">
+                    <span class="mem-label">RAM</span>
+                    <span id="mem-pct" class="mem-value ok">—%</span>
+                </div>
+                <div class="bar-track">
+                    <div id="mem-bar" class="fill-bar ok" style="width:0%"></div>
+                </div>
+                <div class="mem-details">
+                    <div><span>Used:</span> <span id="mem-used">—</span></div>
+                    <div><span>Available:</span> <span id="mem-avail">—</span></div>
+                    <div><span>Total:</span> <span id="mem-total">—</span></div>
+                    <div><span>Cache/Buf:</span> <span id="mem-cache">—</span></div>
+                </div>
+                <div id="swap-section" class="swap-section">
+                    <div class="mem-row">
+                        <span class="mem-label">Swap</span>
+                        <span id="swap-pct" class="mem-value ok">—%</span>
+                    </div>
+                    <div class="bar-track">
+                        <div id="swap-bar" class="fill-bar ok" style="width:0%"></div>
+                    </div>
+                    <div class="mem-details">
+                        <div><span>Used:</span> <span id="swap-used">—</span></div>
+                        <div><span>Total:</span> <span id="swap-total">—</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="card load-card">
+            <h2 class="card-title">Load Average</h2>
+            <div class="card-body load-body">
+                <div class="load-item">
+                    <span class="load-label">1 min</span>
+                    <span id="sys-load1" class="load-value">—</span>
+                </div>
+                <div class="load-item">
+                    <span class="load-label">5 min</span>
+                    <span id="sys-load5" class="load-value">—</span>
+                </div>
+                <div class="load-item">
+                    <span class="load-label">15 min</span>
+                    <span id="sys-load15" class="load-value">—</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="card proc-summary-card">
+            <h2 class="card-title">Processes</h2>
+            <div class="card-body proc-summary-body">
+                <div class="proc-stat">
+                    <span class="proc-stat-label">Total</span>
+                    <span id="sys-proc-total" class="proc-stat-value">—</span>
+                </div>
+                <div class="proc-stat">
+                    <span class="proc-stat-label">Running</span>
+                    <span id="sys-proc-running" class="proc-stat-value ok">—</span>
+                </div>
+                <div class="proc-stat">
+                    <span class="proc-stat-label">Sleeping</span>
+                    <span id="sys-proc-sleeping" class="proc-stat-value">—</span>
+                </div>
+                <div class="proc-stat">
+                    <span class="proc-stat-label">Zombie</span>
+                    <span id="sys-proc-zombie" class="proc-stat-value critical">—</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="card processes-table-card">
+            <h2 class="card-title">Top Processes</h2>
+            <div class="table-wrapper">
+                <table class="proc-table">
+                    <thead>
+                        <tr>
+                            <th>PID</th>
+                            <th>Name</th>
+                            <th>User</th>
+                            <th>CPU%</th>
+                            <th>Mem%</th>
+                            <th>RSS</th>
+                        </tr>
+                    </thead>
+                    <tbody id="proc-tbody"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="card network-card">
+            <h2 class="card-title">Network</h2>
+            <div class="card-body">
+                <div id="net-interfaces" class="net-list"></div>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
